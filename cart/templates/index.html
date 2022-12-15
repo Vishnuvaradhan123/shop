@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<!-- body -->
+<h4>A broad selection of courses</h4>
+<strong>Choose from 213,000 online video courses with new additions published every month</strong>
+<div class="container-fluid mt-3">
+	<div class="row">
+
+
+		<!-- filter -->
+
+
+		<!-- all products -->
+		<div id='products' class="col-lg-9 mx-auto">
+			<div class="row mx-auto product_data">
+				{% for product in products %}
+				<div class="card mx-auto mb-3" id={{product.id}} style="width: 18rem;">
+					<img class="card-img-top" src="{{product.image.url}}" alt="Card image cap">
+					<div class="card-body">
+						<strong><a href="{% url 'detail' product.id %}"
+								class="card-title-{{product.id}}">{{product.name}}</a></strong>
+						<p class="card-text-{{product.id}}"><b>{{product.price|currency}}</b></p>
+						<!-- {{product | is_in_cart:request.session.cart }} -->
+					</div>
+
+					<div class="card-footer p-0 no-gutters">
+
+						{% if product|is_in_cart:request.session.cart %}
+						<div class="row no-gutters">
+		
+							<div class="text-center col btn btn-primary">{{product|cart_quantity:request.session.cart}}
+								Go to Cart</div>
+		
+						</div>
+						{% else %}
+						<form action="/#{{product.id}}" method="POST" id="Id_submit" class="btn-block">
+							{% csrf_token %}
+							<input hidden type="text" name='product' value='{{product.id}}'
+								class='product-id-{{product.id}}'>
+							<button type="submit" class="btn btn-dark addToCartBtn" value="Add To Cart">Add to cart
+							</button>
+						</form>
+						{% endif %}
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+						<script>
+							$(document).on("click", ".Id_submit", function (event) {
+								event.preventDefault();
+								var selector = $(this).closest(".productID")
+								console.log(selector.find("form").attr('action'))
+								const form_data = {
+									csrfmiddlewaretoken: $('#transactionIDValue input[name="csrfmiddlewaretoken"]').val()
+								}
+								$.ajax({
+									type: 'POST',
+									url: selector.find("form").attr('action'),
+									success: function () {
+										alert("Product added to cart")
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-lg-3 mx-auto">
+	<div class="list-group">
+
+		<a href="/" class="list-group-item list-group-item-action btn btn-info">All Courses</a>
+
+		{% for category in categories %}
+		<a href="/?category={{category.id}}"
+			class="list-group-item list-group-item-action btn btn-outline-success ">{{category.name}}</a>
+		{% endfor %}
+	</div>
+
+</div>
+<section class="ud-container ">
+	<h2 class="ud-heading-xl">Featured topics by category</h2>
+	<div class="trending-topics--container--dK887 d-flex justify-content-between">
+		<div class="trending-topics--category--3sEMw">
+			<h3 class="ud-heading-md trending-topics--title--FqFOZ" data-purpose="category-title">Development</h3>
+			<div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/python/" class="trending-topics--link--1B3Cq">Python</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">36,354,994 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/web-development/" class="trending-topics--link--1B3Cq">Web Development</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">11,415,615 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/machine-learning/" class="trending-topics--link--1B3Cq">Machine
+							Learning</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">7,070,015 students</div>
+				</div>
+			</div>
+		</div>
+		<div class="trending-topics--category--3sEMw">
+			<h3 class="ud-heading-md trending-topics--title--FqFOZ" data-purpose="category-title">Business</h3>
+			<div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/financial-analysis/" class="trending-topics--link--1B3Cq">Financial
+							Analysis</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">1,195,282 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/sql/" class="trending-topics--link--1B3Cq">SQL</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">5,977,561 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/pmp/" class="trending-topics--link--1B3Cq">PMP</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">1,733,398 students</div>
+				</div>
+			</div>
+		</div>
+		<div class="trending-topics--category--3sEMw">
+			<h3 class="ud-heading-md trending-topics--title--FqFOZ" data-purpose="category-title">IT and Software
+			</h3>
+			<div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/aws-certification/" class="trending-topics--link--1B3Cq">AWS
+							Certification</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">6,078,244 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/ethical-hacking/" class="trending-topics--link--1B3Cq">Ethical Hacking</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">10,931,066 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/cyber-security/" class="trending-topics--link--1B3Cq">Cyber Security</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">3,998,037 students</div>
+				</div>
+			</div>
+		</div>
+		<div class="trending-topics--category--3sEMw">
+			<h3 class="ud-heading-md trending-topics--title--FqFOZ" data-purpose="category-title">Design</h3>
+			<div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/photoshop/" class="trending-topics--link--1B3Cq">Photoshop</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">10,909,736 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/graphic-design/" class="trending-topics--link--1B3Cq">Graphic Design</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">3,381,052 students</div>
+				</div>
+				<div class="trending-topics--topic--2pYSR">
+					<div>
+						<p href="/topic/drawing/" class="trending-topics--link--1B3Cq">Drawing</p>
+					</div>
+					<div class="trending-topics--count--zZ-EO" data-purpose="count">2,410,849 students</div>
+				</div>
+			</div>
+</section>
+{% endblock %}

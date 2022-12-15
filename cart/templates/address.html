@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>address</title>
+     <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title>E-commerce Website</title>
+
+  <style>
+    
+    nav{
+      background-color: pink;
+    }
+    .one-edge-shadow {
+              box-shadow: 0 8px 2px -5px rgb(246, 245, 245);
+}
+.display-8{
+  font-weight: 200;
+  font-size: 30px;
+  font-colour: $teal-200;
+}
+  </style>
+</head>
+  </head>
+  <body>
+    <h1>Address{{forloop.counter}}</h1>
+    <div class="col-12">
+      <label for="inputName" class="form-label">Name</label>
+      <input type="text" class="form-control" id="inputEmail">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">locality</label>
+      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress2" class="form-label">City</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="col-12">
+      <label for="inputCity" class="form-label">Street</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    
+      <div class="col-12">
+        <label for="inputCity" class="form-label">State</label>
+        <input type="text" class="form-control" id="inputCity">
+      </div>
+    <div class="col-md-2">
+      <label for="inputZip" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+   </form>
+   {%for ad in add%} 
+   <p>Name: {{ad.name}}</p>
+   <p>locality: {{ad.locality}}</p>
+   <p>City: {{ad.city}}</p>
+   <p>Street: {{ad.street}}</p>
+   <p>State: {{ad.state}}</p>
+   <p>Zip: {{ad.zip}}</p>
+  {%endfor%}
+</body>
+</html>
